@@ -1,14 +1,14 @@
 import java.util.Scanner;
 import java.util.function.BinaryOperator;
 
-public class LambdaSwitchCalculator {
+public class CalculadoraLambdaSwitch {
 
     public static void main(String[] args) {
 
         BinaryOperator<Integer> calc;
         Scanner leitor = new Scanner(System.in);
 
-        System.out.println("Digite 1 para soma, 2 para subtração, 3 para multiplicação, 4 para divisão");
+        System.out.println("Digite 1 para soma, 2 para subtração, 3 para multiplicação, 4 para divisão: ");
         int escolha = leitor.nextInt();
 
         switch (escolha) {
@@ -28,11 +28,11 @@ public class LambdaSwitchCalculator {
                 throw new IllegalStateException("Valor inválido: " + escolha);
         }
 
-        System.out.println("Digite dois inteiros");
+        System.out.println("Digite dois números inteiros: ");
 
         int x = leitor.nextInt();
         int y = leitor.nextInt();
 
-        System.out.println(calc.apply(x, y));
+        System.out.println("O resultado é: " + calc.apply(x, y));
     }
 }

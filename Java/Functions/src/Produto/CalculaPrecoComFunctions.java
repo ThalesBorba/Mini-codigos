@@ -1,5 +1,7 @@
-import java.util.Locale;
+package Produto;
+
 import java.util.Scanner;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
@@ -23,10 +25,13 @@ public class CalculaPrecoComFunctions {
                 preco -> preco >= 2500 ? preco * 1.085 : preco;
         UnaryOperator<Double> frete =
                 preco -> preco >= 3000 ? preco + 100 : preco + 50;
+        BiFunction<Double, Double, String> valeAPena =
+                (precoSemFrete, precoComFrete) -> precoSemFrete > precoComFrete
+                        ? "O frete compensa a compra." : "O frete não compensa a compra.";
         Function<Double, String> arredondar =
                 preco -> String.format("%.2f", preco);
         UnaryOperator<String> formatar =
-                preco -> ("R$" + preco).replace(",", "."); //Obs.: depende do locale
+                preco -> (preco).replace(",", "."); //Obs.: depende do locale
 
         String preco = precoFinal
                 .andThen(impostoMunicipal)
@@ -34,7 +39,10 @@ public class CalculaPrecoComFunctions {
                 .andThen(arredondar)
                 .andThen(formatar)
                 .apply(p);
-        System.out.println("O preço final é " + preco + " com o frete.");
+        System.out.println("O preço final do(a) " + p.getNome() + " é R$" + preco + " com o frete.");
+
+        String compensa = valeAPena.apply(p.getPreco(), Double.valueOf(preco));
+        System.out.println(compensa);
 
         leitor.close();
     }
